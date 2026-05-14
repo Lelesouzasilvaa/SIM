@@ -1,3 +1,7 @@
+import imageLoginLight from "@/assets/image_login.png"
+import imageLoginDark from "@/assets/image_logindark.png"
+import { useTheme } from "@/hooks/useTheme"
+
 import { NavLink } from 'react-router'
 import {
   Building2,
@@ -46,14 +50,19 @@ export default function AppSidebar() {
   const isSuperAdmin = user?.role === ROLES.SuperAdmin
   const canSeeCatalog = !isSuperAdmin
 
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme?.includes('dark')
+
   return (
     <aside className="w-60 shrink-0 border-r bg-card flex flex-col h-screen sticky top-0">
       {/* Brand */}
       <div className="h-14 flex items-center px-5 border-b">
         <NavLink to="/" className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-xs font-bold text-primary-foreground">S</span>
-          </div>
+          <img
+            src={isDark ? imageLoginDark : imageLoginLight}
+            alt="Logo SIM"
+            className="h-8 w-auto object-contain"
+          />
           <span className="text-base font-bold tracking-tight text-foreground">{messages.nav.sim}</span>
         </NavLink>
       </div>
